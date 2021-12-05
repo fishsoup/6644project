@@ -1,13 +1,10 @@
 # 6644project
 
-\author{
-  Chengyu Bao  
-  \texttt{chengb2@gatech.edu}\\
-  Zizhe Peng  
-  \texttt{  zpeng71@gatech.edu}\\
-  Yutong Li  
-  \texttt{  yli3481@gatech.edu}\\
-}
+Chengyu Bao chengb2@gatech.edu
+  
+Zizhe Peng  zpeng71@gatech.edu
+  
+Yutong Li   yli3481@gatech.edu
 
 covid.py is for topic 15
 
