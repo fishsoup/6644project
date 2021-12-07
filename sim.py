@@ -29,7 +29,3 @@ for x in range(sample):
 		perday[day][x]+=count
 		day+=1
 	duration.append(day)
-print(sum(perday[0])/sample)
-print(sum(perday[1])/sample)
-plt.hist(perday[0],bins=range(8))
-plt.savefig('perday.png')
