@@ -10,7 +10,12 @@ covid.py is for topic 15
 
 sim.py is for topic 3
 
-simply call 
+installing required package
+```
+pip install -r requirements.txt
+```
+
+runing simulation 
 ```
 python3 covid.py
 python3 sim.py 
