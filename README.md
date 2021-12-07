@@ -18,5 +18,5 @@ python3 sim.py
 no tag needed.
 covid result will be put into a covid.csv file
 
-sim.py will generate no out put but perday[day][sample] will contain the number of infected at **day** day at **sample** run. 
-duration contain pandemic of each sample rum
+sim.py will generate no out put but **perday[day][sample]** will contain the number of infected at **day** day at **sample** run. 
+**duration** contain pandemic of each sample rum
