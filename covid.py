@@ -244,7 +244,7 @@ class Person(object):
 def collect_metrics(env, people):
     while True:
         active[env.now] = sum([person.active for person in people])
-        infected[env.now] = sum([person.infected for person in people])
+        infected[env.now] = sum([person.diagnosed for person in people])
         if env.now == 0 :
             new_infected[env.now] =infected[env.now]
         else :
@@ -317,7 +317,7 @@ def main():
     # export 
     df = pd.DataFrame({
         'active':pd.Series(active),
-        'new_infected':pd.Series(new_infected),
+        'new_diagnosed':pd.Series(new_infected),
         'deaths':pd.Series(deaths),
         'susceptible':pd.Series(susceptible),
         'in_incubation':pd.Series(in_incubation),
