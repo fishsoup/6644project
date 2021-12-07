@@ -9,10 +9,10 @@ from enum import Enum
 import random as rd
 
 # parameters
-N_POPULATION = 100000 # total persons in
-SIM_TIME = 200 # in days
+N_POPULATION = 488000 # total persons in
+SIM_TIME = 180 # in days
 MASK =0.4
-INITIALLY_INFECTED=10
+INITIALLY_INFECTED=12
 MASK_TRANSMISSION_REDUCTION = 0.5
 MASK_INFECTION_REDUCTION = 0.3
 QUARANTINE_EFFECTIVENESS = 0.8
@@ -59,11 +59,12 @@ people = []
 
 # metrics
 active = {}
+new_infected = {}
 deaths = {}
 susceptible = {}
 in_incubation = {}
 contagious = {}
-in_quarantine = {}
+infected = {}
 severe = {}
 
 class  Outcome(Enum) :
@@ -243,11 +244,15 @@ class Person(object):
 def collect_metrics(env, people):
     while True:
         active[env.now] = sum([person.active for person in people])
+        infected[env.now] = sum([person.infected for person in people])
+        if env.now == 0 :
+            new_infected[env.now] =infected[env.now]
+        else :
+            new_infected[env.now] =infected[env.now]-infected[env.now-1]
         deaths[env.now] = sum([person.dead for person in people])
         susceptible[env.now] = N_POPULATION-sum([person.susceptible for person in people])
         in_incubation[env.now] = sum([person.in_incubation for person in people])
         contagious[env.now] = sum([person.contagious for person in people])
-        in_quarantine[env.now] = sum([person.in_quarantine for person in people])
         severe[env.now] = sum([((person.expected_outcome==Outcome.SEVERE) and person.active) for person in people])
         
         yield env.timeout(1)
@@ -312,11 +317,12 @@ def main():
     # export 
     df = pd.DataFrame({
         'active':pd.Series(active),
+        'new_infected':pd.Series(new_infected),
         'deaths':pd.Series(deaths),
         'susceptible':pd.Series(susceptible),
         'in_incubation':pd.Series(in_incubation),
         'contagious':pd.Series(contagious),
-        'in_quarantine':pd.Series(in_quarantine),
+        'infected':pd.Series(infected),
         'severe':pd.Series(severe)
 
     })
