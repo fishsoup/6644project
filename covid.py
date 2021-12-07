@@ -61,6 +61,7 @@ people = []
 active = {}
 new_infected = {}
 deaths = {}
+new_deaths ={}
 susceptible = {}
 in_incubation = {}
 contagious = {}
@@ -245,11 +246,13 @@ def collect_metrics(env, people):
     while True:
         active[env.now] = sum([person.active for person in people])
         infected[env.now] = sum([person.diagnosed for person in people])
+        deaths[env.now] = sum([person.dead for person in people])
         if env.now == 0 :
             new_infected[env.now] =infected[env.now]
+            new_deaths[env.now] =deaths[env.now]
         else :
             new_infected[env.now] =infected[env.now]-infected[env.now-1]
-        deaths[env.now] = sum([person.dead for person in people])
+            new_deaths[env.now] =deaths[env.now]-deaths[env.now-1]
         susceptible[env.now] = N_POPULATION-sum([person.susceptible for person in people])
         in_incubation[env.now] = sum([person.in_incubation for person in people])
         contagious[env.now] = sum([person.contagious for person in people])
@@ -318,7 +321,7 @@ def main():
     df = pd.DataFrame({
         'active':pd.Series(active),
         'new_diagnosed':pd.Series(new_infected),
-        'deaths':pd.Series(deaths),
+        'new_deaths':pd.Series(new_deaths),
         'susceptible':pd.Series(susceptible),
         'in_incubation':pd.Series(in_incubation),
         'contagious':pd.Series(contagious),
